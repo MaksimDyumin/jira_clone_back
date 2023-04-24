@@ -20,5 +20,5 @@ from jira_rest import views
 
 
 urlpatterns = [
-    path('', views.detail, name='test') 
+    path('', views.detail, name='test')
 ]
