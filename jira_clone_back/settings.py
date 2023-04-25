@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'jira_rest',
 ]
 
@@ -84,6 +85,53 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    "ALGORITHM": "RS256",
+    "SIGNING_KEY": """-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAi/2QgAAR5PHsrJHKHafmP/2ITqCli04t2NQdxyHgvBhpEGEe
+hyS5g/WByKuIxwFFJuvrlu6LVT4nv6NBYz6CrbjUAg2NseWM9/oOiI9arr1+rzQA
+5MuAkFXbMVHzCtmpXQGWBtkLhbZS3Gs/oOXjoY5Iq2uI5yxIcz4Dw9/WantKJjqs
+67+WDhoiNehZ+O8q6nSk2nq6QJ0bSsI6eSUMUemWWv3h6W0KBNuP7HqX2M3Tdz3m
+hTwVC4LGLYON4gawJClmj8dwe08PuaUgb3G9KdYlLq/pDEPnCacqf7NEAXK38UQY
+VXFLhXxv9xKI8off/t5kCvN6iFMt9aSH1pJU7wIDAQABAoIBAGbbewWhh4RZgRVW
+1VOu3s2bokBrZtcRLTyItgxvRunNYbzoLv8LK8faZm6kIo5dz4qGg4ZVZUjPr3Lu
+KAgckPXFvPh5LuhMCqTVNUJ/WhjUILXoltOE9sSWYMQ/Oz14qiktFieX6BBp4z4T
+CyBUaUl1+s0A6Qk6D02lfiy4VZnMPI1peC3dQmM6ZWG5pHrJNIQ1AzowN+wXZaE5
+jxBk/ngOxM8eb2mdUuBLagrKo1sGa+YImta+1fYUzJMMGEFfqd8FaCmD+OfZVFiT
+N5jiZVBgBGWSFpKVfERai4o6y2VSQYWFtL4oX/Uc2D7gaoGqdNdFV6ZRlT9jnlUT
+hL3l4ckCgYEA4AXFzv80xXYvytsp4CgYtgAqg15eNlM6BUjPTiyCg0Zfst+L+Thf
+RHiIAZ0D5foNfVSX/bWZqZkdkdiDaM2sLFXQrhFx8lB66HaibDd0oYV8sBp158/Q
+e8AkVaxnsPlKQ3IHdORUqqpMUhWY4x+1IgGuaYLElu9tOu+2ZT46pKMCgYEAn/kY
+B2wEKPcTFo1ougvMUnJlm+CrIdU+X1rAusA5No5Eb59uJxsRvC7FupWNIRHI1RwJ
+gd41WatXJlRZMVYrvsxgxibWDS3XhIGideOLEgafAJE3s7ry2+ewxrC3NON/gaVH
+nCzRH9idqg82v+ZknaVDl1nrMUZvvFBYL/lmh0UCgYAdGKLYf80a2H7cmhqWQp7z
+BJKA/YC/DZA7n3lNbfqFkl5bnS1Q8UFuYzlG/F3FQPT/kj0rdqq+nGR6zOREeHIk
+UAEKmrlx/4H3L3FpHMrJL81CEi2+Lf+mEw6lEf9lvPsoR2cwh3d3sya2gpeY6EVe
+ZVmB2rot4GsPfJL0E2EKgQKBgDaVDi7SGyVDEB88xoPcLK3g3GxwHtPfZ3WviFzv
+41WK+yy+0B3FrapwpwR/rHShFc4oz9Gg2MEspgKs+vXLegeSwl45uAUtJADRHnZs
+2fGfkrbl1YScf+qqRfW1K/1+te2tUB6oZ/4escTphfu6B5CGZ+aHRqk8aDlvjHdp
++CKlAoGAPHswGWMyBhgT7BpLuf7kYzFY55rfguodvup9h3wl67ADfotAnolh6YzM
+enbRyrjCCYZqL9qj77aXtw8fGxlJTx0OVkl56toSQN95OFDVczxC41qyP3A7TcmX
+zj9sxeP7SvQJMN37OfzAony+pkj0itVkQ+1cVSwfkXeCscdJglw=
+-----END RSA PRIVATE KEY-----""",
+
+    "VERIFYING_KEY": """-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi/2QgAAR5PHsrJHKHafm
+P/2ITqCli04t2NQdxyHgvBhpEGEehyS5g/WByKuIxwFFJuvrlu6LVT4nv6NBYz6C
+rbjUAg2NseWM9/oOiI9arr1+rzQA5MuAkFXbMVHzCtmpXQGWBtkLhbZS3Gs/oOXj
+oY5Iq2uI5yxIcz4Dw9/WantKJjqs67+WDhoiNehZ+O8q6nSk2nq6QJ0bSsI6eSUM
+UemWWv3h6W0KBNuP7HqX2M3Tdz3mhTwVC4LGLYON4gawJClmj8dwe08PuaUgb3G9
+KdYlLq/pDEPnCacqf7NEAXK38UQYVXFLhXxv9xKI8off/t5kCvN6iFMt9aSH1pJU
+7wIDAQAB
+-----END PUBLIC KEY-----"""
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -103,6 +151,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'jira_rest.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

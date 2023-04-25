@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from jira_rest import views
 
 
 urlpatterns = [
-    path('', views.detail, name='test')
+    path('', views.DetailView.as_view(), name='test'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', views.RegistrationView.as_view(), name='register'),
 ]
