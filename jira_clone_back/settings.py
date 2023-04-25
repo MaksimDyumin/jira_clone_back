@@ -88,6 +88,8 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     )
 }
 
@@ -129,7 +131,8 @@ oY5Iq2uI5yxIcz4Dw9/WantKJjqs67+WDhoiNehZ+O8q6nSk2nq6QJ0bSsI6eSUM
 UemWWv3h6W0KBNuP7HqX2M3Tdz3mhTwVC4LGLYON4gawJClmj8dwe08PuaUgb3G9
 KdYlLq/pDEPnCacqf7NEAXK38UQYVXFLhXxv9xKI8off/t5kCvN6iFMt9aSH1pJU
 7wIDAQAB
------END PUBLIC KEY-----"""
+-----END PUBLIC KEY-----""",
+    "ROTATE_REFRESH_TOKENS": True
 }
 
 

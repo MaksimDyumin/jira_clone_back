@@ -3,12 +3,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .models import User
-from .serializers import RegisterUserSerializer
+from .serializers import RegisterUserSerializer, ProfileUserSerializer
 
 class DetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -20,7 +20,13 @@ class DetailView(APIView):
 class RegistrationView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
-    
+
     def perform_create(self, serializer):
         serializer.save()
 
+class UserProfileView(RetrieveAPIView):
+    serializer_class = ProfileUserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user

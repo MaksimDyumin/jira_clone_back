@@ -18,3 +18,9 @@ class RegisterUserSerializer(ModelSerializer):
         ModelClass = self.Meta.model
         user = User.objects.create_user(validated_data['username'], password=validated_data['password'])
         return user
+    
+
+class ProfileUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username']
