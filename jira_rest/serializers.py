@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ImageField
 from .models import User
 
 class RegisterUserSerializer(ModelSerializer):
@@ -21,6 +21,16 @@ class RegisterUserSerializer(ModelSerializer):
     
 
 class ProfileUserSerializer(ModelSerializer):
+    picture = ImageField(read_only=True, source='profile_picture')
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'picture']
+
+
+class ProfilePictureSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['picture']
+    
+    picture = ImageField(write_only=True, source='profile_picture')
+    pass
