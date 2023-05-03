@@ -170,3 +170,7 @@ pgdata/
 
 
 .python-version
+
+
+# images
+uploads
