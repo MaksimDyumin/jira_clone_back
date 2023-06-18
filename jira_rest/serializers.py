@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, ImageField
-from .models import User, Room
+from .models import User, Room, Desk, Task
 
 class RegisterUserSerializer(ModelSerializer):
     class Meta:
@@ -43,4 +43,15 @@ class UserRoomSerializer(ModelSerializer):
         fields = [ 'id', 'title', 'description', 'author', 'users']
         read_only_fields = ['users', 'author']
 
-    
+
+class UserDesksSerializer(ModelSerializer):
+    class Meta:
+        model = Desk
+        fields = [ 'id', 'title', 'room']
+        read_only_fields = ['room']
+
+class UserTasksSerializer(ModelSerializer):
+    class Meta:
+        model = Task
+        fields = [ 'id', 'title', 'description', 'desk', 'status', 'assignee']
+        read_only_fields = ['desk']

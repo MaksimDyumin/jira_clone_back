@@ -18,11 +18,23 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import include
+
+from rest_framework_nested import routers
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from jira_rest import views
 
+
+router = routers.DefaultRouter()
+router.register(r'rooms', views.UserRoomsViewSet, basename='Room')
+
+rooms_router = routers.NestedSimpleRouter(router, r'rooms', lookup='room')
+rooms_router.register(r'desks', views.UserDesksViewSet, basename='room-desks')
+
+desks_router = routers.NestedSimpleRouter(rooms_router, r'desks', lookup='desk')
+desks_router.register(r'tasks', views.UserTasksViewSet, basename='desk-tasks')
 
 urlpatterns = [
     path('', views.DetailView.as_view(), name='test'),
@@ -31,5 +43,9 @@ urlpatterns = [
     path('register/', views.RegistrationView.as_view(), name='register'),
     path('profile/', views.UserProfileView.as_view(), name='profile'),
     path('profile/picture/', views.UserProfilePictureView.as_view(), name='profile_picture'),
-    path('profile/rooms/', views.UserRoomsListView.as_view(), name='profile_rooms'),
+
+    path('', include(router.urls)),
+    path(r'', include(rooms_router.urls)),
+    path(r'', include(desks_router.urls)),
+    # path('profile/rooms/{ROOM_ID}/desks/', views.UserDesksListView.as_view(), name='room_desks'),
 ]

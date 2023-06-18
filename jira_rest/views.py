@@ -6,9 +6,13 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 
-from .models import User, Room
-from .serializers import RegisterUserSerializer, ProfileUserSerializer, ProfilePictureSerializer, UserRoomSerializer
+from .models import User, Room, Desk, Task
+from .serializers import (
+    RegisterUserSerializer, ProfileUserSerializer, ProfilePictureSerializer, 
+    UserRoomSerializer, UserDesksSerializer, UserTasksSerializer
+)
 
 
 
@@ -58,3 +62,38 @@ class UserRoomsListView(ListCreateAPIView):
         instance.users.add(author)
         instance.save()
     
+
+
+class UserRoomsViewSet(viewsets.ModelViewSet):
+    serializer_class = UserRoomSerializer
+
+    def get_queryset(self):
+        return self.request.user.rooms.all()
+    
+    def perform_create(self, serializer):
+        author = self.request.user
+        instance = serializer.save(author=author)
+        instance.users.add(author)
+        instance.save()
+
+class UserDesksViewSet(viewsets.ModelViewSet):
+    serializer_class = UserDesksSerializer
+    # queryset = Room.objects.all()
+
+    def get_queryset(self):
+        return Desk.objects.filter(room=self.kwargs['room_pk'])
+    
+    def perform_create(self, serializer):
+        room = self.kwargs['room_pk']
+        serializer.save(room_id=room)
+
+
+class UserTasksViewSet(viewsets.ModelViewSet):
+    serializer_class = UserTasksSerializer
+
+    def get_queryset(self):
+        return Task.objects.filter(desk=self.kwargs['desk_pk'])
+    
+    def perform_create(self, serializer):
+        desk = self.kwargs['desk_pk']
+        serializer.save(desk_id=desk)

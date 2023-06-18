@@ -19,6 +19,21 @@ class Desk(models.Model):
 
 
 class Task(models.Model):
+    IN_WORK = "IN_WORK"
+    FREE = "FREE"
+    IN_REVIEW = "IN_REVIEW"
+    DONE = "DONE"
+    STATUS_TASK_CHOICES = [
+        (IN_WORK, "IN_WORK"),
+        (FREE, "FREE"),
+        (IN_REVIEW, "IN_REVIEW"),
+        (DONE, "DONE"),
+    ]
+    
     title = models.CharField(max_length=100)
     description = models.TextField()
     desk = models.ForeignKey(Desk, on_delete=models.CASCADE, related_name='tasks')
+    status = models.CharField(max_length=100, choices=STATUS_TASK_CHOICES, blank=True, null=True)
+    assignee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned_tasks', blank=True, null=True)
+
+    
